@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-regexHostType="^[0-9\.]{7,15}[[:space:]]+([^ #]+)"
-regexDomainType="^([^ #]+)"
+regexHostType="^[0-9\.]{7,15}[[:space:]]+([^ #]+)" # To match: 0.0.0.0 somedomain.com
+regexDomainType="^([^ #]+)" # To match: somedomain.com
 
 while read line; do
 	FQDN=""
