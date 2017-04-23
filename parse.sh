@@ -1,17 +1,22 @@
 #!/usr/bin/env bash
 
-regexLine="[0-9\.]{7,15}[[:space:]]+([^ #]+)"
+regexHostType="^[0-9\.]{7,15}[[:space:]]+([^ #]+)"
+regexDomainType="^([^ #]+)"
 
 while read line; do
-	[[ $line =~ $regexLine ]]
+	FQDN=""
 
-	if [[ ${BASH_REMATCH[0]} != "" ]]; then
+	if [[ $line =~ $regexHostType ]]; then
 		FQDN="${BASH_REMATCH[1]}"
+	elif [[ $line =~ $regexDomainType ]]; then
+		FQDN="${BASH_REMATCH[1]}"
+	fi
 
-		if [[ "$FQDN" = "localhost" ]]; then
-			continue;
-		fi
+	if [[ "$FQDN" = "localhost" ]]; then
+		continue;
+	fi
 
+	if [[ "$FQDN" != "" ]]; then
 		echo "zone \"$FQDN\" { type master;  file \"/etc/named/blackhole\"; };"
 	fi
 
