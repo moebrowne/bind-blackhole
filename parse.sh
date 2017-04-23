@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-regexLine="[^ ]+[[:space:]]+(.+)"
+regexLine="[0-9\.]{7,15}[[:space:]]+(.+)"
 
 while read line; do
 
