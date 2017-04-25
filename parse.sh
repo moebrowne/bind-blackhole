@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-regexHostType="^[0-9\.]{7,15}[[:space:]]+([^ #]+)" # To match: 0.0.0.0 somedomain.com
+newline=$'\x0D'
+lineFeed=$'\x0A'
+
+regexHostType="^[0-9\.]{7,15}[[:space:]]+([^"${newline}${lineFeed}" #]+)" # To match: 0.0.0.0 somedomain.com
 regexDomainType="^([^ #]+)" # To match: somedomain.com
 
 while read line; do
