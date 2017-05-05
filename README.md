@@ -8,7 +8,7 @@ DNS black holing is a simple and effective way of preventing malicious traffic o
 
 ## Installation
 
-All that is needed is to run the install script:
+All that's needed is to run the included install script:
 
 ```sh
 ./install.sh
