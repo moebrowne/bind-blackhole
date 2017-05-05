@@ -3,7 +3,7 @@
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
 
-DIR_CACHE="$SOURCE_ROOT/cache"
+DIR_CACHE="$SOURCE_ROOT/../cache"
 
 if [ ! -d "$DIR_CACHE" ]; then
     mkdir "$DIR_CACHE" || exit 1

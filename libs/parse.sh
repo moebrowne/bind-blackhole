@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Get the source directory
+SOURCE_ROOT="${BASH_SOURCE%/*}"
+
+source "$SOURCE_ROOT/configLocations.sh"
+
 newline=$'\x0D'
 lineFeed=$'\x0A'
 
@@ -20,7 +25,7 @@ while read line; do
 	fi
 
 	if [[ "$FQDN" != "" ]]; then
-		echo "zone \"$FQDN\" { type master;  file \"/etc/named/blackhole\"; };"
+		echo "zone \"$FQDN\" { type master;  file \"${blackholeZoneLocation}\"; };"
 	fi
 
 done < /dev/stdin
