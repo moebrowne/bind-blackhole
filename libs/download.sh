@@ -36,4 +36,4 @@ while read source; do
 
 	echo "$sourceList"
 
-done < sources.csv
+done < "${SOURCE_ROOT}/../sources.csv"
