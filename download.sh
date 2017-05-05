@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ ! -d './cache' ]; then
+    mkdir './cache'
+fi
+
 regexETagHeader='ETag: "([^"]+)"'
 
 while read source; do
