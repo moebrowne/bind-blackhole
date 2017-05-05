@@ -43,3 +43,5 @@ fi
 echo "$blackholeZone" > "$blackholeZoneLocation"
 
 echo "include \"${blackholeListLocation}\";" >> "$configLocation"
+
+touch "${blackholeListLocation}"
