@@ -17,7 +17,7 @@ All that's needed is to run the included install script:
 ## Usage
 
 ```
-./download.sh | ./parse.sh | sort | uniq > /path/to/bind/black-hole-config
+./run.sh
 ```
 
 This repo comes with a predefined set of host sources in `sources.csv`. This could easily be expanded with additional 
