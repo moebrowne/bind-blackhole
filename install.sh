@@ -24,7 +24,7 @@ elif [[ -d '/etc/bind' ]]; then
 	# Debian Style
 	configLocation='/etc/bind/named.conf'
 	blackholeZoneLocation='/etc/bind/db.blackhole'
-	blackholeListLocation='/etc/bind/zones.blackhole'
+	blackholeListLocation='/etc/bind/named.conf.blackhole'
 else
 	echo 'Unable to locate Bind config!'
 	exit 1
@@ -42,4 +42,4 @@ fi
 
 echo "$blackholeZone" > "$blackholeZoneLocation"
 
-echo "include \"${blackholeZoneLocation}\";" >> "$configLocation"
+echo "include \"${blackholeListLocation}\";" >> "$configLocation"
