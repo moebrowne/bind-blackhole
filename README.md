@@ -16,7 +16,9 @@ All that's needed is to run the included install script:
 
 ## Usage
 
-```
+The blackhole lists are created & updated by running the following:
+
+```sh
 ./run.sh
 ```
 
