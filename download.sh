@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-if [ ! -d './cache' ]; then
-    mkdir './cache'
+# Get the source directory
+SOURCE_ROOT="${BASH_SOURCE%/*}"
+
+DIR_CACHE="$SOURCE_ROOT/cache"
+
+if [ ! -d "$DIR_CACHE" ]; then
+    mkdir "$DIR_CACHE" || exit 1
 fi
 
 regexETagHeader='ETag: "([^"]+)"'
@@ -16,13 +21,13 @@ while read source; do
 		ETag="${BASH_REMATCH[1]}"
 	fi
 
-	if [[ -f "./cache/${ETag}" ]]; then
+	if [[ -f "$DIR_CACHE/${ETag}" ]]; then
 		echo " - Using cache" > /dev/stderr
-		sourceList=$(cat "./cache/${ETag}")
+		sourceList=$(cat "$DIR_CACHE/${ETag}")
 	else
 		echo " - Downloading..." > /dev/stderr
 		sourceList=$(curl -s "$source")
-		echo "$sourceList" > "./cache/${ETag}"
+		echo "$sourceList" > "$DIR_CACHE/${ETag}"
 	fi
 
 	sourceCount=$(wc -l <<< "${sourceList}")
