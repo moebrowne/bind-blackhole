@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Get the source directory
+SOURCE_ROOT="${BASH_SOURCE%/*}"
+
+source "$SOURCE_ROOT/libs/configLocations.sh"
+
 read -r -d '' blackholeZone <<'EOF'
 $TTL	400;
 @		IN		SOA		ns0.example.net. hostmaster.example.net. (
@@ -14,21 +19,6 @@ $TTL	400;
 
 *		IN		CNAME	analysis.example.net
 EOF
-
-if [[ -d '/etc/named' ]]; then
-	# RHEL/CentOS Style
-	configLocation='/etc/named.conf'
-	blackholeZoneLocation='/etc/named/blackhole'
-	blackholeListLocation='/etc/named.blackhole.zones'
-elif [[ -d '/etc/bind' ]]; then
-	# Debian Style
-	configLocation='/etc/bind/named.conf'
-	blackholeZoneLocation='/etc/bind/db.blackhole'
-	blackholeListLocation='/etc/bind/named.conf.blackhole'
-else
-	echo 'Unable to locate Bind config!'
-	exit 1
-fi
 
 if [[ ! -w "$configLocation" ]]; then
 	echo "Can't write to the Bind config file! ($configLocation)"
