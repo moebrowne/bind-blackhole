@@ -12,10 +12,19 @@ fi
 regexETagHeader='ETag: "([^"]+)"'
 regexCodeHeader='HTTP/[1-2]\.[1-2] ([0-9]+) ([a-zA-Z0-9 ]+)'
 
-while read source; do
-	echo "Getting hosts from $source" > /dev/stderr
+while IFS=',' read -ra sourceData; do
 
-	headers=$(curl -sI "$source")
+	sourceName="${sourceData[0]}"
+	sourceURL="${sourceData[1]}"
+
+	# Skip CSV headers
+	if [[ "$sourceName" == "name" ]]; then
+	    continue
+    fi
+
+	echo "Getting hosts from $sourceName" > /dev/stderr
+
+	headers=$(curl -sI "$sourceURL")
 
 	# Check that we got a 200 response
 	[[ $headers =~ $regexCodeHeader ]]
@@ -34,7 +43,7 @@ while read source; do
 		sourceList=$(cat "$DIR_CACHE/${ETag}")
 	else
 		echo " - Downloading..." > /dev/stderr
-		sourceList=$(curl -s "$source")
+		sourceList=$(curl -s "$sourceURL")
 
 		if [[ "${ETag}" != "" ]]; then
             echo "$sourceList" > "$DIR_CACHE/${ETag}"
