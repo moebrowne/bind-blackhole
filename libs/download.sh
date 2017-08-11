@@ -21,13 +21,16 @@ while read source; do
 		ETag="${BASH_REMATCH[1]}"
 	fi
 
-	if [[ -f "$DIR_CACHE/${ETag}" ]]; then
+	if [[ "${ETag}" != "" && -f "$DIR_CACHE/${ETag}" ]]; then
 		echo " - Using cache" > /dev/stderr
 		sourceList=$(cat "$DIR_CACHE/${ETag}")
 	else
 		echo " - Downloading..." > /dev/stderr
 		sourceList=$(curl -s "$source")
-		echo "$sourceList" > "$DIR_CACHE/${ETag}"
+
+		if [[ "${ETag}" != "" ]]; then
+            echo "$sourceList" > "$DIR_CACHE/${ETag}"
+		fi
 	fi
 
 	sourceCount=$(wc -l <<< "${sourceList}")
